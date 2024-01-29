@@ -35,14 +35,14 @@ namespace GestionBancariaAppNS
                 return ERR_CANTIDAD_NO_VALIDA;
             if (saldo < cantidad)
                 return ERR_SALDO_INSUFICIENTE;
-            saldo += cantidad;
+            saldo -= cantidad;  //RCM2324
             return 0;
         }
 
         public int RealizarIngreso(double cantidad) {
-            if (cantidad > 0)
+            if (cantidad < 0) //Sutituyo el signo de > por el de < 
                 return ERR_CANTIDAD_NO_VALIDA;
-            saldo -= cantidad;
+            saldo += cantidad; //Sustituyo el signo - por el + RCM2324
             return 0;
         }
 
