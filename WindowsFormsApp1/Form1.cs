@@ -32,17 +32,20 @@ namespace GestionBancariaAppNS
         public int RealizarReintegro(double cantidad) 
         {
             if (cantidad <= 0)
-                return ERR_CANTIDAD_NO_VALIDA;
-            if (saldo < cantidad)
-                return ERR_SALDO_INSUFICIENTE;
+                //return ERR_CANTIDAD_NO_VALIDA;
+                throw new ArgumentOutOfRangeException("La cantidad indicada no es válida.");
+            if (saldo < cantidad)//Comento return y añado throw new
+                //return ERR_SALDO_INSUFICIENTE;
+                throw new ArgumentOutOfRangeException("Saldo Insuficiente");
             saldo -= cantidad;  //RCM2324
             return 0;
         }
 
         public int RealizarIngreso(double cantidad) {
-            if (cantidad < 0) //Sutituyo el signo de > por el de < 
-                return ERR_CANTIDAD_NO_VALIDA;
-            saldo += cantidad; //Sustituyo el signo - por el + RCM2324
+            if (cantidad <= 0) //Añado = y comento return y añado throw new 
+                //return ERR_CANTIDAD_NO_VALIDA;
+                throw new ArgumentOutOfRangeException("La cantidad indicada no es válida.");
+            saldo += cantidad; //RCM2324
             return 0;
         }
 

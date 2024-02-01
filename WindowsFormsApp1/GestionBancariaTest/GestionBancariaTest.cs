@@ -28,16 +28,15 @@ namespace GestionBancariaTest    //?RCM2324
         }
 
         [TestMethod]
-        public void validarReintegro2()
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void validarReintegroCantidadNoValida()
         {
-            //Prueba 2 de validarReintegro (cantidad > saldo)  //RCM2324
-            double saldoInicial = 100;
-            double reintegro = 250;
-            double saldoEsperado = -150;
+            //Prueba 1 de validarReintegroCantidadNoValida (cantidad < 0)  //RCM2324
+            double saldoInicial = 1000;
+            double reintegro = -250;
+            double saldoEsperado = saldoInicial - reintegro;
 
-            GestionBancariaApp miApp = new
-            GestionBancariaApp(saldoInicial);
-
+            GestionBancariaApp miApp = new GestionBancariaApp(saldoInicial);
             //Metodo a probar  //?RCM2324
             miApp.RealizarReintegro(reintegro);
 
@@ -47,16 +46,15 @@ namespace GestionBancariaTest    //?RCM2324
         }
 
         [TestMethod]
-        public void validarReintegro3()
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void validarReintegroSaldoInsuficiente()
         {
-            //Prueba 3 de validarReintegro (cantidad < 0)  //RCM2324
-            double saldoInicial = 0;
-            double reintegro = -60;
-            double saldoEsperado = -60;
+            //Prueba 2 de validarReintegroSaldoInsuficiente (cantidad > saldo)  //RCM2324
+            double saldoInicial = 250;
+            double reintegro = 1000;
+            double saldoEsperado = saldoInicial - reintegro;
 
-            GestionBancariaApp miApp = new
-            GestionBancariaApp(saldoInicial);
-
+            GestionBancariaApp miApp = new GestionBancariaApp(saldoInicial);
             //Metodo a probar  //?RCM2324
             miApp.RealizarReintegro(reintegro);
 
@@ -65,8 +63,7 @@ namespace GestionBancariaTest    //?RCM2324
 
         }
 
-
-
+       
         [TestMethod]
         public void validarIngreso1()
         {
@@ -75,9 +72,7 @@ namespace GestionBancariaTest    //?RCM2324
             double ingreso = 55;
             double SaldoEsperado = 55;
 
-            GestionBancariaApp miApp = new
-            GestionBancariaApp(saldoInicial);
-
+            GestionBancariaApp miApp = new GestionBancariaApp(saldoInicial);
             //Metodo a probar   //RCM2324
             miApp.RealizarIngreso(ingreso);
 
@@ -88,16 +83,15 @@ namespace GestionBancariaTest    //?RCM2324
 
 
         [TestMethod]
-        public void validarIngreso2()
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void validarIngresoCantidadNoValida1()
         {
-            //Prueba 2 validarIngreso (Cantidad = 0)   //RCM2324
-            double saldoInicial = 55;
+            //Prueba 1 validarIngresoCantidadNoValida1 (Cantidad = 0)   //RCM2324
+            double saldoInicial = 1000;
             double ingreso = 0;
-            double SaldoEsperado = 55;
+            double SaldoEsperado = saldoInicial + ingreso;
 
-            GestionBancariaApp miApp = new
-            GestionBancariaApp(saldoInicial);
-
+            GestionBancariaApp miApp = new GestionBancariaApp(saldoInicial);
             //Metodo a probar   //RCM2324
             miApp.RealizarIngreso(ingreso);
 
@@ -107,16 +101,15 @@ namespace GestionBancariaTest    //?RCM2324
 
 
         [TestMethod]
-        public void validarIngreso3()
+        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        public void validarIngresoCantidadNoValida2()
         {
-            //Prueba 3 validarIngreso (Cantidad < 0)   //RCM2324
-            double saldoInicial = 0;
-            double ingreso = -40;
-            double SaldoEsperado = -40;
+            //Prueba 2 validarIngresoCantidadNoValida2 (Cantidad < 0)   //RCM2324
+            double saldoInicial = 1000;
+            double ingreso = -250;
+            double SaldoEsperado = saldoInicial + ingreso;
 
-            GestionBancariaApp miApp = new
-            GestionBancariaApp(saldoInicial);
-
+            GestionBancariaApp miApp = new GestionBancariaApp(saldoInicial);
             //Metodo a probar   //RCM2324
             miApp.RealizarIngreso(ingreso);
 
