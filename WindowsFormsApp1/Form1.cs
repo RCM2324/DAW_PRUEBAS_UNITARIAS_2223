@@ -34,7 +34,7 @@ namespace GestionBancariaAppNS
         {
             if (cantidad <= 0)
                 //return ERR_CANTIDAD_NO_VALIDA;
-                throw new ArgumentOutOfRangeException(ERR_CANTIDAD_NO_VALIDA);
+                throw new ArgumentException(ERR_CANTIDAD_NO_VALIDA);
             if (saldo < cantidad)//Sustituyo la forma de generar las excepciones
                 //return ERR_SALDO_INSUFICIENTE;
                 throw new ArgumentOutOfRangeException(ERR_SALDO_INSUFICIENTE);
@@ -60,22 +60,28 @@ namespace GestionBancariaAppNS
                     RealizarReintegro(cantidad);
                     MessageBox.Show("Transacción realizada.");
                 }
-                catch (Exception error) {
+                catch (Exception error) //RCM2324
+                {
                     if (error.Message.Contains(ERR_SALDO_INSUFICIENTE))
                         MessageBox.Show("No se ha podido realizar la operación (¿Saldo Insuficiente?)");
                     else
-                    if (error.Message.Contains(ERR_CANTIDAD_NO_VALIDA))
-                        MessageBox.Show("Cantidad no valida, solo se admiten cantidades positivas");
+                    {
+                        if (error.Message.Contains(ERR_CANTIDAD_NO_VALIDA))
+                            MessageBox.Show("Cantidad no valida, solo se admiten cantidades positivas");
+                    }
+
+                    
                 }    
      
             }
-            else {
+            else 
+            {
                 try
                 {
                     RealizarIngreso(cantidad);
                     MessageBox.Show("Transacción realizada.");
                 }
-                catch(Exception error)
+                catch(Exception error) //RCM2324
                 {
                     if (error.Message.Contains(ERR_CANTIDAD_NO_VALIDA))
                         MessageBox.Show("Cantidad no válida, sólo se admiten cantidades positivas.");

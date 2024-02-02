@@ -9,12 +9,18 @@ namespace GestionBancariaTest    //?RCM2324
     public class GestionBancariaTest
     {
         [TestMethod]
-        public void validarReintegro1()
+        [DataRow(1000, 250, 750)]
+        [DataRow(1000, 1000, 0)]
+        [DataRow(2000, 500, 1500)]
+        [DataRow(100, 20, 80)]
+        [DataRow(5, 2.5, 2.5)]
+        //Modifico el codigo para parametrizar la prueba //RCM2324
+        public void validarReintegro1(double saldoInicial, double reintegro, double saldoEsperado)
         {
             //Prueba 1 de validarReintegro (cantidad <= saldo)  //RCM2324
-            double saldoInicial = 1000;
-            double reintegro = 250;
-            double saldoEsperado = 750;
+            //double saldoInicial = 1000;
+            //double reintegro = 250;
+            //double saldoEsperado = 750;
 
             GestionBancariaApp miApp = new
             GestionBancariaApp(saldoInicial);
@@ -28,7 +34,7 @@ namespace GestionBancariaTest    //?RCM2324
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        //[ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void validarReintegroCantidadNoValida()
         {
             //Prueba 1 de validarReintegroCantidadNoValida (cantidad < 0)  //RCM2324
@@ -39,7 +45,7 @@ namespace GestionBancariaTest    //?RCM2324
             GestionBancariaApp miApp = new GestionBancariaApp(saldoInicial);
             try
             {
-                miApp.RealizarReintegro(reintegro);//?RCM2324
+                miApp.RealizarReintegro (reintegro);//?RCM2324
             }
             catch (ArgumentOutOfRangeException exception)
             { 
@@ -55,7 +61,7 @@ namespace GestionBancariaTest    //?RCM2324
         }
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        //[ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void validarReintegroSaldoInsuficiente()
         {
             //Prueba 2 de validarReintegroSaldoInsuficiente (cantidad > saldo)  //RCM2324
@@ -100,7 +106,7 @@ namespace GestionBancariaTest    //?RCM2324
 
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        //[ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void validarIngresoCantidadNoValida1()
         {
             //Prueba 1 validarIngresoCantidadNoValida1 (Cantidad = 0)   //RCM2324
@@ -122,12 +128,12 @@ namespace GestionBancariaTest    //?RCM2324
             Assert.Fail("Error. Se debia haber producido una excepción.");
 
             Assert.AreEqual(saldoEsperado, miApp.ObtenerSaldo(), 0.001,
-               "Se produjo un error al realizar el reintegro, saldo " + "incorrecto.");
+               "Se produjo un error al realizar el ingreso, saldo " + "incorrecto.");
         }
 
 
         [TestMethod]
-        [ExpectedException(typeof(ArgumentOutOfRangeException))]
+        //[ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void validarIngresoCantidadNoValida2()
         {
             //Prueba 2 validarIngresoCantidadNoValida2 (Cantidad < 0)   //RCM2324
@@ -149,7 +155,7 @@ namespace GestionBancariaTest    //?RCM2324
             Assert.Fail("Error. Se debia haber producido una excepción.");
 
             Assert.AreEqual(saldoEsperado, miApp.ObtenerSaldo(), 0.001,
-               "Se produjo un error al realizar el reintegro, saldo " + "incorrecto.");
+               "Se produjo un error al realizar el ingreso, saldo " + "incorrecto.");
 
 
 
