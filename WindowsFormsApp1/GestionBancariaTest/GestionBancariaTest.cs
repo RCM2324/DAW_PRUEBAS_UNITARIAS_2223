@@ -37,12 +37,21 @@ namespace GestionBancariaTest    //?RCM2324
             double saldoEsperado = saldoInicial - reintegro;
 
             GestionBancariaApp miApp = new GestionBancariaApp(saldoInicial);
-            //Metodo a probar  //?RCM2324
-            miApp.RealizarReintegro(reintegro);
+            try
+            {
+                miApp.RealizarReintegro(reintegro);//?RCM2324
+            }
+            catch (ArgumentOutOfRangeException exception)
+            { 
+                StringAssert.Contains(exception.Message, GestionBancariaApp.ERR_CANTIDAD_NO_VALIDA);
+
+                return;
+            }
+            Assert.Fail("Error. Se debia haber producido una excepción.");
+
 
             Assert.AreEqual(saldoEsperado, miApp.ObtenerSaldo(), 0.001,
-                "Se produjo un error al realizar el reintegro, saldo " + "incorrecto.");
-
+               "Se produjo un error al realizar el reintegro, saldo " + "incorrecto.");
         }
 
         [TestMethod]
@@ -55,12 +64,20 @@ namespace GestionBancariaTest    //?RCM2324
             double saldoEsperado = saldoInicial - reintegro;
 
             GestionBancariaApp miApp = new GestionBancariaApp(saldoInicial);
-            //Metodo a probar  //?RCM2324
-            miApp.RealizarReintegro(reintegro);
+            try
+            {
+                miApp.RealizarReintegro(reintegro);//?RCM2324
+            }
+            catch(ArgumentOutOfRangeException exception)
+            {
+                StringAssert.Contains(exception.Message, GestionBancariaApp.ERR_SALDO_INSUFICIENTE);
+
+                return;
+            }
+            Assert.Fail("Error. Se debia haber producido una excepción.");
 
             Assert.AreEqual(saldoEsperado, miApp.ObtenerSaldo(), 0.001,
-                "Se produjo un error al realizar el reintegro, saldo " + "incorrecto.");
-
+               "Se produjo un error al realizar el reintegro, saldo " + "incorrecto.");
         }
 
        
@@ -70,13 +87,13 @@ namespace GestionBancariaTest    //?RCM2324
             //Prueba 1 validarIngreso (Cantidad > 0)   //RCM2324
             double saldoInicial = 0;
             double ingreso = 55;
-            double SaldoEsperado = 55;
+            double saldoEsperado = 55;
 
             GestionBancariaApp miApp = new GestionBancariaApp(saldoInicial);
             //Metodo a probar   //RCM2324
             miApp.RealizarIngreso(ingreso);
 
-            Assert.AreEqual(SaldoEsperado, miApp.ObtenerSaldo(), 0.001,
+            Assert.AreEqual(saldoEsperado, miApp.ObtenerSaldo(), 0.001,
                 "Se produjo un error al realizar el ingreso, saldo " + "incorrecto");
 
         }
@@ -89,14 +106,23 @@ namespace GestionBancariaTest    //?RCM2324
             //Prueba 1 validarIngresoCantidadNoValida1 (Cantidad = 0)   //RCM2324
             double saldoInicial = 1000;
             double ingreso = 0;
-            double SaldoEsperado = saldoInicial + ingreso;
+            double saldoEsperado = saldoInicial + ingreso;
 
             GestionBancariaApp miApp = new GestionBancariaApp(saldoInicial);
-            //Metodo a probar   //RCM2324
-            miApp.RealizarIngreso(ingreso);
+            try
+            {
+                miApp.RealizarIngreso(ingreso);//RCM2324
+            }
+            catch (ArgumentOutOfRangeException exception)
+            {
+                StringAssert.Contains(exception.Message, GestionBancariaApp.ERR_CANTIDAD_NO_VALIDA);
 
-            Assert.AreEqual(SaldoEsperado, miApp.ObtenerSaldo(), 0.001,
-                "Se produjo un error al realizar el ingreso, saldo " + "incorrecto");
+                return;
+            }
+            Assert.Fail("Error. Se debia haber producido una excepción.");
+
+            Assert.AreEqual(saldoEsperado, miApp.ObtenerSaldo(), 0.001,
+               "Se produjo un error al realizar el reintegro, saldo " + "incorrecto.");
         }
 
 
@@ -107,14 +133,26 @@ namespace GestionBancariaTest    //?RCM2324
             //Prueba 2 validarIngresoCantidadNoValida2 (Cantidad < 0)   //RCM2324
             double saldoInicial = 1000;
             double ingreso = -250;
-            double SaldoEsperado = saldoInicial + ingreso;
+            double saldoEsperado = saldoInicial + ingreso;
 
             GestionBancariaApp miApp = new GestionBancariaApp(saldoInicial);
-            //Metodo a probar   //RCM2324
-            miApp.RealizarIngreso(ingreso);
+            try
+            {
+                miApp.RealizarIngreso(ingreso);//RCM2324
+            }  
+            catch(ArgumentOutOfRangeException exception)
+            {
+                StringAssert.Contains(exception.Message, GestionBancariaApp.ERR_CANTIDAD_NO_VALIDA);
 
-            Assert.AreEqual(SaldoEsperado, miApp.ObtenerSaldo(), 0.001,
-                "Se produjo un error al realizar el ingreso, saldo " + "incorrecto");
+                return;
+            }
+            Assert.Fail("Error. Se debia haber producido una excepción.");
+
+            Assert.AreEqual(saldoEsperado, miApp.ObtenerSaldo(), 0.001,
+               "Se produjo un error al realizar el reintegro, saldo " + "incorrecto.");
+
+
+
         }
     }
 
