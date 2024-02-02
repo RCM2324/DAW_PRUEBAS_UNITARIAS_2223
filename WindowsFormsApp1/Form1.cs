@@ -34,7 +34,7 @@ namespace GestionBancariaAppNS
         {
             if (cantidad <= 0)
                 //return ERR_CANTIDAD_NO_VALIDA;
-                throw new ArgumentException(ERR_CANTIDAD_NO_VALIDA);
+                throw new ArgumentOutOfRangeException(ERR_CANTIDAD_NO_VALIDA);
             if (saldo < cantidad)//Sustituyo la forma de generar las excepciones
                 //return ERR_SALDO_INSUFICIENTE;
                 throw new ArgumentOutOfRangeException(ERR_SALDO_INSUFICIENTE);
